@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.devteam.entity.Project;
 
-@Repository
 public interface ProjectRepository extends CrudRepository<Project, Long> {
 
 	@Override
