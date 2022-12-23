@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CreateProject from './Project/CreateProject';
 import ProjectItem from "./Project/ProjectItem";
  class Dashboard extends Component {
   render() {
@@ -7,11 +8,9 @@ import ProjectItem from "./Project/ProjectItem";
           <div className="container">
             <div className="row">
               <div className="col-md-12">
-                <h1 className="display-4 text-center">Projects</h1>
+                <h1 className="display-4 text-center">System Dashboard</h1>
                 <br />
-                <a href="ProjectForm.html" className="btn btn-lg btn-info">
-                  Create a Project
-                </a>
+                <CreateProject/>
                 <br />
                 <hr />
                 <ProjectItem />
