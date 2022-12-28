@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
  const CreateProject = () => {
   return (
     <React.Fragment>
-        <Link to="/addProject" className="btn btn-lg btn-info">
+        <Link to="/addProject" className="btn btn-lg btn-primary">
             Create a Project
         </Link>
     </React.Fragment>
