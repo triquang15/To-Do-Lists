@@ -1,5 +1,5 @@
-/* eslint-disable import/no-anonymous-default-export */
-import { GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from "../actions/type";
+import { GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from "../actions/types";
+
 const initialState = {
   projects: [],
   project: {}
