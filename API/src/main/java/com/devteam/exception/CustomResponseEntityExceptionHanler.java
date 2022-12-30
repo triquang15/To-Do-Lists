@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.devteam.validator.UserDtoResponse;
+
 @ControllerAdvice
 @RestController
 public class CustomResponseEntityExceptionHanler extends ResponseEntityExceptionHandler {
@@ -20,6 +22,12 @@ public class CustomResponseEntityExceptionHanler extends ResponseEntityException
 	@ExceptionHandler
 	public final ResponseEntity<Object> handleProjectNotFoundException(ProjectNotFoundException exception, WebRequest request) {
 		ProjectNotFoundExceptionResponse exceptionResponse = new ProjectNotFoundExceptionResponse(exception.getMessage());
+		return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleUserException(UserExistsException exception, WebRequest request) {
+		UserDtoResponse exceptionResponse = new UserDtoResponse(exception.getMessage());
 		return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 }
