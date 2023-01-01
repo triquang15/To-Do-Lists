@@ -1,5 +1,7 @@
 package com.devteam.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,32 +33,33 @@ public class ProjectController {
 	private ValidationErrorService validationErrorService;
 
 	@PostMapping("")
-	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result) {
+	public ResponseEntity<?> createNewProject(@Valid @RequestBody Project project, BindingResult result,
+			Principal principal) {
 
 		ResponseEntity<?> errorMap = validationErrorService.mapValidationErrorService(result);
 		if (errorMap != null)
 			return errorMap;
 
-		Project createProject = projectService.saveOrUpdate(project);
+		Project createProject = projectService.saveOrUpdate(project, principal.getName());
 
 		return new ResponseEntity<Project>(createProject, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{projectId}")
-	public ResponseEntity<?> getProjectById(@PathVariable String projectId) {
-		Project project = projectService.findByProjectIdentifier(projectId);
+	public ResponseEntity<?> getProjectById(@PathVariable String projectId, Principal principal) {
+		Project project = projectService.findByProjectIdentifier(projectId, principal.getName());
 
 		return new ResponseEntity<Project>(project, HttpStatus.OK);
 	}
 
 	@GetMapping("/all")
-	public Iterable<Project> getAllProject() {
-		return projectService.findAllProject();
+	public Iterable<Project> getAllProject(Principal principal) {
+		return projectService.findAllProject(principal.getName());
 	}
 	
 	@DeleteMapping("/{projectId}")
-	public ResponseEntity<?> deleteProject(@PathVariable String projectId) {
-		projectService.deleteProjectByIdentifier(projectId);
+	public ResponseEntity<?> deleteProject(@PathVariable String projectId, Principal principal) {
+		projectService.deleteProjectByIdentifier(projectId, principal.getName());
 		
 		return new ResponseEntity<String>("Project with ID " + projectId + " was deleted", HttpStatus.OK);
 	}
